@@ -229,7 +229,6 @@ class Client(object):
         queue = self.queue
         size = queue.qsize()
         self.consumer.flush()
-        queue.join()
         # Note that this message may not be precise, because of threading.
         self.log.debug('successfully flushed about %s items.', size)
 
