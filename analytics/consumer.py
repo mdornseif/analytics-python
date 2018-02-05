@@ -40,6 +40,12 @@ class Consumer(Thread):
     def pause(self):
         """Pause the consumer."""
         self.running = False
+        self.flush()
+
+    def flush(self):
+        """Ensure queue is processed now."""
+        # Empty message to wake up the waiting Thread
+        self.queue.put(None, block=False)
 
     def upload(self):
         """Upload the next batch of items, return whether successful."""
@@ -70,7 +76,8 @@ class Consumer(Thread):
         while len(items) < self.upload_size:
             try:
                 item = queue.get(block=True, timeout=0.5)
-                items.append(item)
+                if item is not None:
+                    items.append(item)
             except Empty:
                 break
 
