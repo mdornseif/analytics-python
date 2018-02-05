@@ -46,6 +46,7 @@ class Consumer(Thread):
         """Ensure queue is processed now."""
         # Empty message to wake up the waiting Thread
         self.queue.put(None, block=False)
+        self.queue.join()
 
     def upload(self):
         """Upload the next batch of items, return whether successful."""
