@@ -136,13 +136,13 @@ def discover_default_consumer():
     # Google App Engine
     # https://cloud.google.com/appengine/docs/python/how-requests-are-handled#Python_The_environment
     if 'CURRENT_VERSION_ID' in os.environ and 'INSTANCE_ID' in os.environ:
-        log.critical('Detected environment to be Google App Engine. Using synchronous Mode.')
+        log.info('Detected environment to be Google App Engine. Using synchronous Mode.')
         return SyncConsumer
 
     # AWS Lambda
     # https://alestic.com/2014/11/aws-lambda-environment/
     if 'LAMBDA_TASK_ROOT' in os.environ:
-        log.critical('Detected environment to be AWS Lambda. Using synchronous HTTP transport.')
+        log.info('Detected environment to be AWS Lambda. Using synchronous HTTP transport.')
         return SyncConsumer
 
     return AsyncConsumer
