@@ -23,6 +23,7 @@ class AbstractConsumer(object):
         self.queue = queue
         self.retries = 3
         self.block_queue = False
+        self.timeout = 0.5
 
     def upload(self):
         """Upload the next batch of items, return whether successful."""
@@ -85,7 +86,6 @@ class AsyncConsumer(AbstractConsumer, Thread):
         # run() *after* we set it to False in pause... and keep running forever.
         self.retries = 3
         self.block_queue = True
-        self.timeout = 0.5
 
     def run(self):
         """Runs the consumer."""
